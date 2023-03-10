@@ -56,6 +56,13 @@ exports.main = async (event, callback) => {
       
       // Update ticket description with query and additionalInformation
       
+      if (additionalInformation === undefined ) {
+        var content = query
+      }
+      else {
+        var content = `${query} ${additionalInformation}`
+      }
+      
       var options = {
         method: 'PATCH',
         url: `https://api.hubapi.com/crm/v3/objects/tickets/${latestTicketId}`,
@@ -65,7 +72,7 @@ exports.main = async (event, callback) => {
         },
         body: { 
           properties: { 
-            content: `${query} ${additionalInformation}`
+            content: content
           }
         },
         json: true,
