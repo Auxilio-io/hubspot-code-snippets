@@ -6,14 +6,16 @@ exports.main = (event, callback) => {
   const contactId = event.session.vid;
   const opsToken = process.env['OPS_TOKEN']
   
-  var options = { method: 'POST',
-    url: `https://api.hubapi.com/contacts/v1/contact/vid/${contactId}/profile`,
+  var options = { method: 'PATCH',
+    url: `https://api.hubapi.com/crm/v3/objects/contacts/${contactId}`,
     headers: 
      {'Content-Type': 'application/json', 
       'authorization': `Bearer ${opsToken}`},
-    body: 
-     { properties: 
-        [ { property: 'last_knowledge_base_lookup_query_in_bots', value: query } ] },
+    body: {
+      properties: {
+        last_knowledge_base_lookup_query_in_bots: query
+      }
+     },
     json: true };
 
   request(options, function (error, response, body) {
