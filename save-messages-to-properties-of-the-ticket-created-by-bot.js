@@ -36,7 +36,7 @@ exports.main = async (event, callback) => {
         const ticketId = ticket.toObjectId;
         var options = {
           method: 'GET',
-          url: `https://api.hubapi.com/crm-objects/v1/objects/tickets/${ticketId}?properties=createdate`,
+          url: `https://api.hubapi.com/crm/v3/objects/tickets/${ticketId}`,
           headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${opsToken}`,
@@ -50,8 +50,8 @@ exports.main = async (event, callback) => {
         ticketsWithCreateDate.push(ticketWithCreateDate);
       }
       // find most recent ticket
-      const latestTicket = ticketsWithCreateDate.reduce((a, b) => a.properties.createdate.timestamp > b.properties.createdate.timestamp ? a : b);	
-      const latestTicketId = latestTicket.objectId	
+      const latestTicket = ticketsWithCreateDate.reduce((a, b) => a.createdAt > b.createdAt ? a : b);	
+      const latestTicketId = latestTicket.id	
       console.log(latestTicketId)
       
       // Update ticket description with query and additionalInformation
