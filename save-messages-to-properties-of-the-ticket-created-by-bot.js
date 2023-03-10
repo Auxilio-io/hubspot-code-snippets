@@ -2,7 +2,7 @@ const request = require('request');
 const util = require('util');
 
 exports.main = async (event, callback) => {
-  const query = event.session.customState.query;
+  const query = event.session.customState.query; // see this repo to know how to use session custom state https://github.com/Auxilio-io/hubspot-code-snippets/blob/main/save-message-into-event-custom-state-to-use-later-in-chatflow.js
   const additionalInformation = event.session.customState.additionalInformation;
   const contactId = event.session.vid;
   const opsToken = process.env['OPS_TOKEN'];
